@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 app.post('/api/shorturl/new', function(req, res) {
   const original_url = req.body.url
   const newUrl = new Url({ original_url })
-  Url.save(function(err, data) {
+  newUrl.save(function(err, data) {
     if (err) return res.json({error: "Erro saving data"})
     return res.json({
       short_url: newUrl.id,
@@ -52,6 +52,14 @@ app.post('/api/shorturl/new', function(req, res) {
 app.get('/api/shorturl', async function(req, res) {
   const urlList = await Url.find()
   res.json({urlList})
+})
+
+app.get('/api/shorturl/:id', function(req, res) {
+  const id = req.params.id
+  Url.find({ id }, function (err, data) {
+    if (err) return res.json({ error: "error finding url"})
+    return res.json({ data })
+  })
 })
 
 app.use('/public', express.static(process.cwd() + '/public'));
