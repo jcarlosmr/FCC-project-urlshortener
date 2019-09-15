@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+const dns = require('dns');
 const app = express();
 
 // Basic Configuration
